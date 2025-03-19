@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "../redux/reducer";
 import toast from "react-hot-toast";
+import Button from "./button/Button";
 
 export default function AddTaskForm() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function AddTaskForm() {
         ...content,
       })
     );
-
+    toast.success("Task added successfully!");
     setContent({ title: "", description: "" });
   };
   return (
@@ -40,7 +41,7 @@ export default function AddTaskForm() {
       <form onSubmit={handleSubmit} className="task-form">
         <h2 className="font-poppins text-center">Add Task</h2>
 
-        <div className="space-y-4 mt-4">
+        <div className="space-y-4 mt-2">
           <div>
             <label htmlFor="title" className="text-xs font-semibold ">
               Title
@@ -51,7 +52,7 @@ export default function AddTaskForm() {
               name="title"
               placeholder="Task Title"
               value={content.title}
-              className="text-xs border border-gray-200 px-2 py-1 rounded w-full"
+              className="text-xs border border-gray-200 p-2 rounded w-full"
               onChange={handleChange}
             />
           </div>
@@ -66,12 +67,16 @@ export default function AddTaskForm() {
               placeholder="Task Description"
               value={content.description}
               onChange={handleChange}
-              className="text-xs border border-gray-200 px-2 py-1 rounded w-full min-h-[100px] !resize-none"
+              className="text-xs border border-gray-200 p-2 rounded w-full min-h-[100px] !resize-none"
             />
           </div>
         </div>
 
-        <button type="submit">Add Task</button>
+        <div className="mt-4">
+          <Button className="w-full">
+            <p>Add Task</p>
+          </Button>
+        </div>
       </form>
     </div>
   );
