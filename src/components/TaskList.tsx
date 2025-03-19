@@ -3,7 +3,9 @@ import { Task } from "../types/globalTypes";
 import TaskCard from "./TaskCard";
 
 export default function TaskList() {
-  const taskList: Task[] = useSelector((store: { task: Task[] }) => store.task);
+  const taskList: Task[] = useSelector(
+    (store: { task: { task: Task[] } }) => store.task.task
+  );
 
   return (
     <>

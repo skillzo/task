@@ -18,7 +18,9 @@ export default function TaskCard({
       <div>
         <p className="text-xl font-bold font-poppins">{title}</p>
 
-        <p className="mt-3 text-xs pl-1">{content}</p>
+        <p className="mt-3 text-xs pl-1 max-h-[100px] overflow-y-auto">
+          {content}
+        </p>
       </div>
 
       <div className="flex justify-between items-center">

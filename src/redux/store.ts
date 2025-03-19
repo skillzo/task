@@ -1,12 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { reducer as taskReducer } from "./reducer";
+import { persistedTaskReducer } from "./reducer";
+import { persistStore } from "redux-persist";
+import { reducer as modalSlice } from "./modalSlice";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    task: taskReducer,
+    task: persistedTaskReducer,
+    modal: modalSlice,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export default store;
+export const persistor = persistStore(store);

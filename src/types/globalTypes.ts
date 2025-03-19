@@ -18,3 +18,13 @@ export interface IUpdateTask {
 export interface IDeleteTask {
   id: string;
 }
+
+export interface IModalState {
+  modalType: string | null;
+  modalProps?: any;
+}
+
+export interface IStore {
+  modal: IModalState;
+  task: Task[];
+}
