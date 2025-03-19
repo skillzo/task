@@ -27,4 +27,5 @@ export interface IModalState {
 export interface IStore {
   modal: IModalState;
   task: Task[];
+  theme: string;
 }

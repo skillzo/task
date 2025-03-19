@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateTask } from "../redux/reducer";
+import { updateTask } from "../redux/taskReducerSlice";
 import toast from "react-hot-toast";
 import Button from "./button/Button";
 import { IStore } from "../types/globalTypes";

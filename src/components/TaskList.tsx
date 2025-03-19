@@ -9,9 +9,9 @@ export default function TaskList() {
 
   return (
     <>
-      <div className="max-w-[1000px] mx-auto grid grid-cols-3 gap-6 mt-[5%] p-6 rounded-lg">
-        {taskList.map((task) => (
-          <TaskCard key={task.id} task={task} />
+      <div className="max-w-[1000px] mx-auto grid gird-cols-1 md:grid-cols-3 gap-6 mt-[5%] p-6 rounded-lg">
+        {taskList.map((task, idx) => (
+          <TaskCard key={task.id} task={task} index={idx} />
         ))}
       </div>
     </>

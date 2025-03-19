@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../redux/reducer";
+import { addTask } from "../redux/taskReducerSlice";
 import toast from "react-hot-toast";
 import Button from "./button/Button";
 import { closeModal } from "../redux/modalSlice";

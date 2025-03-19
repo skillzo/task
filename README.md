@@ -1,54 +1,76 @@
-# React + TypeScript + Vite
+# 📝 Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple **Task Manager** application built with **React, Redux Toolkit, Redux Persist**, and **Tailwind CSS**, featuring **dark mode** and **state persistence**.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✅ **Add, Update, and Delete Tasks**  
+✅ **Task Status Management** (`todo`, `in-progress`, `done`)  
+✅ **Dark Mode Toggle** (Persisted with `localStorage`)  
+✅ **State Persistence** using **Redux Persist**  
+✅ **React Hot Toast for Notifications**  
+✅ **Fully Responsive UI**
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend:** React, Redux Toolkit, Tailwind CSS
+- **State Management:** Redux Toolkit + Redux Persist
+- **Notifications:** React Hot Toast
+- **Persistence:** LocalStorage (via Redux Persist)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📦 Installation
+
+### 1️⃣ Clone the Repository
+
+```sh
+git clone https://github.com/skillzo/task.git
+cd task
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2️⃣ Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```sh
+npm install
+# or
+yarn install
 ```
+
+### 3️⃣ Run the App
+
+```sh
+npm run dev
+```
+
+Now, open **`http://localhost:5173/`** in your browser.
+
+## 📂 Folder Structure
+
+```
+📦 task-manager-redux
+├── 📂 src
+│   ├── 📂 components        # Reusable UI components
+│   ├── 📂 redux             # Contains initial static data
+│   ├── 📂 redux             # Redux slices & store
+│   │   ├── themeSlice.ts    # Handles light/dark mode
+│   │   ├── taskSlice.ts     # Manages task state
+│   │   ├── modalSlice.ts     # Manages modal state
+│   ├── 📂 types             # TypeScript type definitions
+│   ├── App.tsx              # Main React component
+│   ├── index.tsx            # Entry point
+├── tailwind.config.js       # Tailwind CSS config
+├── README.md                # Project Documentation
+```
+
+## 🎨 Dark Mode Setup
+
+1. **Enable `darkMode: "class"`** in `tailwind.config.js`
+2. **Redux slice manages light/dark mode**
+3. **`localStorage` persists theme**
+
+**Theme Toggle Button (`ThemeToggle.tsx`):**
+
+## ✅ Testing with Jest
+
+To run the unit tests:
+
+npm test

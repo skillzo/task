@@ -1,21 +1,73 @@
 import classNames from "classnames";
 import edit from "../assets/icons/edit.png";
 import deleteIcon from "../assets/icons/delete.png";
-import { IStore, Task } from "../types/globalTypes";
-import { deleteTask, updateTask } from "../redux/reducer";
-import { useDispatch, useSelector } from "react-redux";
+import more from "../assets/icons/more.png";
+import { Task } from "../types/globalTypes";
+import { useDispatch } from "react-redux";
 import { openModal } from "../redux/modalSlice";
 import toast from "react-hot-toast";
+import { deleteTask, toggleStatus } from "../redux/taskReducerSlice";
+import { color } from "../utils/variables";
+import { useState } from "react";
 
 interface Props {
   task: Task;
+  index: number;
 }
 
-export default function TaskCard({ task }: Props) {
+interface IStatus {
+  name: string;
+  status: "todo" | "in-progress" | "done";
+}
+
+const status: IStatus[] = [
+  {
+    name: "To Do",
+    status: "todo",
+  },
+  {
+    name: "In Progress",
+    status: "in-progress",
+  },
+  {
+    name: "Done",
+    status: "done",
+  },
+];
+
+export default function TaskCard({ task, index }: Props) {
   const dispatch = useDispatch();
+  const [showToggle, setShowToggle] = useState(false);
 
   return (
-    <div className="bg-orange-200 h-52 rounded-lg px-4 py-4 flex flex-col justify-between">
+    <div
+      className={`relative h-52 rounded-lg px-4 py-4 flex flex-col justify-between  ${
+        color[index || Math.round(Math.random() * 18) + 1]
+      }`}
+    >
+      <img
+        src={more}
+        className="absolute top-4 right-2 w-4 h-4 cursor-pointer"
+        onClick={() => {
+          setShowToggle(!showToggle);
+        }}
+      />
+      {showToggle && (
+        <ul className="absolute top-10 right-2 space-y-3 text-xs bg-white rounded-md pl-2 pr-8  py-2 shadow-md">
+          {status.map((item) => (
+            <li
+              className="cursor-pointer w-full hover:font-semibold text-black"
+              onClick={() => {
+                dispatch(toggleStatus({ id: task.id, status: item.status }));
+                setShowToggle(false);
+              }}
+            >
+              {item.name}
+            </li>
+          ))}
+        </ul>
+      )}
+
       <div>
         <p className="text-xl font-bold font-poppins">{task.title}</p>
 

@@ -12,6 +12,9 @@ import AddTaskForm from "./components/AddTaskForm";
 function App() {
   const dispatch = useDispatch();
   const modalState = useSelector((state: IStore) => state.modal);
+  const themeState = useSelector(
+    (state: { theme: { theme: string } }) => state.theme.theme
+  );
 
   return (
     <>
@@ -29,10 +32,12 @@ function App() {
         <EditTaskForm />
       </Modal>
 
-      <div>
-        <div className="border-b border-gray-300 mt-[3%] pb-2">
-          <div className=" flex justify-between items-center w-[80%] mx-auto">
-            <p className="text-3xl font-semibold font-poppins">My Tasks</p>
+      <div className="dark dark:bg-black bg-gray-50  min-h-screen">
+        <div className="border-b border-gray-300 pt-[3%] pb-2">
+          <div className=" flex justify-between items-center w-[95%] md:w-[80%] mx-auto">
+            <p className="text-3xl font-semibold font-poppins dark:text-white/90">
+              My Tasks
+            </p>
 
             <Button
               onClick={() => dispatch(openModal({ modalType: "ADD_TASK" }))}
