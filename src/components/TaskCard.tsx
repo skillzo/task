@@ -8,11 +8,13 @@ import { openModal } from "../redux/modalSlice";
 import toast from "react-hot-toast";
 import { deleteTask, toggleStatus } from "../redux/taskReducerSlice";
 import { color } from "../utils/variables";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useDrag, useDrop } from "react-dnd";
 
 interface Props {
   task: Task;
   index: number;
+  moveTask: (from: number, to: number) => void;
 }
 
 interface IStatus {
@@ -35,23 +37,47 @@ const status: IStatus[] = [
   },
 ];
 
-export default function TaskCard({ task, index }: Props) {
+export default function TaskCard({ task, index, moveTask }: Props) {
+  const ref = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const [showToggle, setShowToggle] = useState(false);
 
+  // dragging state
+  const [{ isDragging }, dragRef] = useDrag({
+    type: "TASK",
+    item: { index },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  // after drop
+  const [, dropRef] = useDrop({
+    accept: "TASK",
+    hover: (draggedItem: { index: number }) => {
+      if (draggedItem.index !== index) {
+        moveTask(draggedItem.index, index);
+        draggedItem.index = index;
+      }
+    },
+  });
+
+  dragRef(dropRef(ref));
   return (
     <div
-      className={`relative h-52 rounded-lg px-4 py-4 flex flex-col justify-between  ${
+      ref={ref}
+      className={`relative h-52 rounded-lg px-4 py-4 flex flex-col justify-between shadow-md  ${
         color[index || Math.round(Math.random() * 18) + 1]
-      }`}
+      } ${isDragging ? "opacity-50" : "opacity-100"}`}
     >
-      <img
-        src={more}
-        className="absolute top-4 right-2 w-4 h-4 cursor-pointer"
+      {/* toggle status button */}
+      <button
         onClick={() => {
           setShowToggle(!showToggle);
         }}
-      />
+      >
+        <img src={more} className="absolute top-4 right-2 w-4 h-4" />
+      </button>
       {showToggle && (
         <ul className="absolute top-10 right-2 space-y-3 text-xs bg-white rounded-md pl-2 pr-8  py-2 shadow-md">
           {status.map((item) => (
@@ -76,23 +102,24 @@ export default function TaskCard({ task, index }: Props) {
         </p>
       </div>
 
+      {/* action buttons */}
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
-          <img
-            src={edit}
-            className="w-4 h-4 cursor-pointer"
+          <button
             onClick={() => {
               dispatch(openModal({ modalType: "EDIT_TASK", modalProps: task }));
             }}
-          />
-          <img
-            src={deleteIcon}
-            className="w-4 h-4 cursor-pointer"
+          >
+            <img src={edit} className="w-4 h-4 cursor-pointer" />
+          </button>
+          <button
             onClick={() => {
               dispatch(deleteTask({ id: task.id }));
               toast.success("Task deleted successfully!");
             }}
-          />
+          >
+            <img src={deleteIcon} className="w-4 h-4 cursor-pointer" />
+          </button>
         </div>
 
         <div className="flex justify-center items-center gap-0.5">

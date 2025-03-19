@@ -28,6 +28,13 @@ const taskReducer = createSlice({
     deleteTask: (state, action: PayloadAction<{ id: string }>) => {
       state.task = state.task.filter((task) => task.id !== action.payload.id);
     },
+    reorderTasks: (
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>
+    ) => {
+      const [movedTask] = state.task.splice(action.payload.fromIndex, 1);
+      state.task.splice(action.payload.toIndex, 0, movedTask);
+    },
     toggleStatus: (
       state,
       action: PayloadAction<{
@@ -55,5 +62,5 @@ export const persistedTaskReducer = persistReducer(
   taskReducer.reducer
 );
 
-export const { addTask, updateTask, deleteTask, toggleStatus } =
+export const { addTask, updateTask, deleteTask, toggleStatus, reorderTasks } =
   taskReducer.actions;
