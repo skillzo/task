@@ -11,12 +11,7 @@ export default function TaskList() {
     <>
       <div className="max-w-[1000px] mx-auto grid grid-cols-3 gap-6 mt-[5%] p-6 rounded-lg">
         {taskList.map((task) => (
-          <TaskCard
-            key={task.id}
-            title={task.title}
-            description={task.description}
-            status={task.status}
-          />
+          <TaskCard key={task.id} task={task} />
         ))}
       </div>
     </>

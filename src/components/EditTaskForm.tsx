@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTask } from "../redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTask } from "../redux/reducer";
 import toast from "react-hot-toast";
 import Button from "./button/Button";
+import { IStore } from "../types/globalTypes";
 import { closeModal } from "../redux/modalSlice";
 
-export default function AddTaskForm() {
+export default function EditTaskForm() {
   const dispatch = useDispatch();
 
+  const { modalProps } = useSelector((state: IStore) => state.modal);
+
   const [content, setContent] = useState({
-    title: "",
-    description: "",
+    title: modalProps.title,
+    description: modalProps.description,
   });
 
   const handleChange = (
@@ -26,17 +29,17 @@ export default function AddTaskForm() {
       toast.error("Both title and description are required!");
       return;
     }
-
+    toast.success("Task updated successfully!");
     dispatch(
-      addTask({
-        id: Date.now().toString(),
-        status: "todo",
-        ...content,
+      updateTask({
+        ...modalProps,
+        title: content.title,
+        description: content.description,
       })
     );
     dispatch(closeModal());
+
     setContent({ title: "", description: "" });
-    toast.success("Task added successfully!");
   };
   return (
     <div>
@@ -61,7 +64,7 @@ export default function AddTaskForm() {
 
           <div>
             <label htmlFor="title" className="text-xs font-semibold ">
-              Title
+              Description
             </label>
 
             <textarea
@@ -75,8 +78,8 @@ export default function AddTaskForm() {
         </div>
 
         <div className="mt-4">
-          <Button className="w-full">
-            <p>Add Task</p>
+          <Button className="w-full !bg-gray-500 ">
+            <p>Update Task</p>
           </Button>
         </div>
       </form>

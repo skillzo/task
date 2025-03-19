@@ -1,5 +1,4 @@
 import "./App.css";
-import AddTask from "./components/AddTaskForm";
 import Button from "./components/button/Button";
 import TaskList from "./components/TaskList";
 import addIcon from "./assets/icons/add-task.png";
@@ -7,26 +6,27 @@ import Modal from "./components/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "./redux/modalSlice";
 import { IStore } from "./types/globalTypes";
+import EditTaskForm from "./components/EditTaskForm";
+import AddTaskForm from "./components/AddTaskForm";
 
 function App() {
   const dispatch = useDispatch();
   const modalState = useSelector((state: IStore) => state.modal);
 
-  console.log("modal", modalState);
   return (
     <>
       <Modal
-        open={modalState.modalType === "ADD_TODO"}
+        open={modalState.modalType === "ADD_TASK"}
         onClose={() => dispatch(closeModal())}
       >
-        <AddTask />
+        <AddTaskForm />
       </Modal>
 
       <Modal
-        open={modalState.modalType === "EDIT_TODO"}
+        open={modalState.modalType === "EDIT_TASK"}
         onClose={() => dispatch(closeModal())}
       >
-        <AddTask />
+        <EditTaskForm />
       </Modal>
 
       <div>
@@ -35,7 +35,7 @@ function App() {
             <p className="text-3xl font-semibold font-poppins">My Tasks</p>
 
             <Button
-              onClick={() => dispatch(openModal({ modalType: "ADD_TODO" }))}
+              onClick={() => dispatch(openModal({ modalType: "ADD_TASK" }))}
             >
               <div className="flex items-center gap-2">
                 <img src={addIcon} className="w-4 h-4" />

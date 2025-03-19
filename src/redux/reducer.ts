@@ -26,8 +26,7 @@ const taskReducer = createSlice({
       return state;
     },
     deleteTask: (state, action: PayloadAction<{ id: string }>) => {
-      const { id } = action.payload;
-      return state.task.filter((task) => task.id !== id);
+      state.task = state.task.filter((task) => task.id !== action.payload.id);
     },
     toggleStatus: (
       state,
@@ -46,7 +45,6 @@ const taskReducer = createSlice({
   },
 });
 
-// Redux Persist Config
 const persistConfig = {
   key: "task",
   storage,
