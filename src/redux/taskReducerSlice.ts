@@ -62,5 +62,7 @@ export const persistedTaskReducer = persistReducer(
   taskReducer.reducer
 );
 
+export const taskReducerSlice = taskReducer.reducer;
+
 export const { addTask, updateTask, deleteTask, toggleStatus, reorderTasks } =
   taskReducer.actions;

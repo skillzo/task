@@ -2,12 +2,14 @@
 // import {
 //   addTask,
 //   deleteTask,
-//   persistedTaskReducer as taskReducer,
+//   taskReducerSlice as taskReducer,
 //   toggleStatus,
 //   updateTask,
 // } from "./taskReducerSlice";
+// // Import the non-persisted reducer
 
-// const initialState: { task: Task[]; _persist: any } = {
+// // Initial test state (should be reset for each test)
+// const getInitialState = (): { task: Task[] } => ({
 //   task: [
 //     { id: "1", title: "Task 1", description: "First task", status: "todo" },
 //     {
@@ -17,9 +19,15 @@
 //       status: "in-progress",
 //     },
 //   ],
-// };
+// });
 
 // describe("taskSlice Reducers", () => {
+//   let initialState: { task: Task[] };
+
+//   beforeEach(() => {
+//     initialState = getInitialState(); // Reset state before the next test test
+//   });
+
 //   it("should add a new task", () => {
 //     const newTask: Task = {
 //       id: "3",
@@ -62,7 +70,10 @@
 //   });
 
 //   it("should toggle the status of a task", () => {
-//     const updatedStatus = { id: "1", status: "done" };
+//     const updatedStatus = {
+//       id: "1",
+//       status: "done" as "todo" | "in-progress" | "done",
+//     };
 
 //     const newState = taskReducer(initialState, toggleStatus(updatedStatus));
 
