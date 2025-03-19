@@ -66,17 +66,18 @@ export default function TaskCard({ task, index, moveTask }: Props) {
   return (
     <div
       ref={ref}
-      className={`relative h-52 rounded-lg px-4 py-4 flex flex-col justify-between shadow-md  ${
+      className={`relative h-52 rounded-lg p-4 flex flex-col justify-between shadow-md  ${
         color[index || Math.round(Math.random() * 18) + 1]
       } ${isDragging ? "opacity-50" : "opacity-100"}`}
     >
       {/* toggle status button */}
       <button
+        className="absolute top-4 right-2 "
         onClick={() => {
           setShowToggle(!showToggle);
         }}
       >
-        <img src={more} className="absolute top-4 right-2 w-4 h-4" />
+        <img src={more} className="w-4 h-4" />
       </button>
       {showToggle && (
         <ul className="absolute top-10 right-2 space-y-3 text-xs bg-white rounded-md pl-2 pr-8  py-2 shadow-md">
@@ -95,7 +96,7 @@ export default function TaskCard({ task, index, moveTask }: Props) {
       )}
 
       <div>
-        <p className="text-xl font-bold font-poppins">{task.title}</p>
+        <p className="text-xl font-bold font-poppins w-[80%]">{task.title}</p>
 
         <p className="mt-3 text-xs pl-1 max-h-[100px] overflow-y-auto">
           {task.description}
